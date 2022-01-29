@@ -35,9 +35,7 @@ export async function getStaticProps() {
 export default function Home({ continents }) {
   return (
     // <Suspense fallback={<h1>'loading...'</h1>}>
-    <div className="App">
-      <Tree data={continents} />
-    </div>
+    <Tree data={continents} />
     /* </Suspense> */
   )
 }
