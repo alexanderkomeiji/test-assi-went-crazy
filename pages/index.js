@@ -2,7 +2,6 @@ import React from "react"
 import { gql } from "@apollo/client"
 import client from "../apollo-client"
 import Tree from "../components/Tree/Tree"
-const { Suspense } = React
 export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
