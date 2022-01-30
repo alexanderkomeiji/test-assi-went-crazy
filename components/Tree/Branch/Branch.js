@@ -43,7 +43,9 @@ const Branch = ({ item, level, itemLast }) => {
   const hasChildren = item.children ? true : false
   let itemLeaf = () => {
     //!item.children?.some((elem, i)=>elem.children) &&
-    return item?.children?.filter((elem) => !elem.children).at(-1)
+    return (
+      item.children && item.children.filter((elem) => !elem.children).at(-1)
+    )
   }
 
   if (hasChildren) {
