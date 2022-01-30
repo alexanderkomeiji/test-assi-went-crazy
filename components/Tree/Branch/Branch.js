@@ -44,11 +44,6 @@ const Branch = ({ item, level, itemLast }) => {
     return item.children?.filter((elem) => !elem.children).at(-1)
   }
 
-  if (hasChildren) {
-    console.log("Has children", item.children)
-    console.log(itemLeaf(), "is last leaf")
-  }
-
   const renderBranches = () => {
     if (hasChildren) {
       return item.children.map((child) => {
@@ -57,7 +52,7 @@ const Branch = ({ item, level, itemLast }) => {
             key={child.id}
             item={child}
             level={level + 1}
-            itemLast={item && itemLeaf()?.id}
+            itemLast={itemLeaf()?.id}
           />
         )
       })
