@@ -3,7 +3,7 @@ import Node from "../Node/Node"
 import { useToggle } from "../../useToggle"
 import { context } from "../Tree"
 
-export const BranchList = ({ item, level }) => {
+export const BranchList = ({ item = null, level }) => {
   const [selectedBrach, setSelected] = useToggle()
 
   const setSelectedBranch = React.useCallback(
@@ -39,12 +39,9 @@ const Branch = ({ item, level, itemLast }) => {
     setSelected = setSelectedBranch
     selected = selectedBrach
   }
-  // item.children = Object.keys(item).includes()
   const hasChildren = item.children ? true : false
   let itemLeaf = () => {
-    //!item.children?.some((elem, i)=>elem.children) &&
-    if (!item.children) return null
-    return item.children.filter((elem) => !elem.children).at(-1)
+    return item.children?.filter((elem) => !elem.children).at(-1)
   }
 
   if (hasChildren) {
