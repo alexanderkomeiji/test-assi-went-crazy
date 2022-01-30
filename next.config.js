@@ -4,4 +4,5 @@ module.exports = {
   //     concurrentFeatures: true,
   //     reactRoot: true
   // }
+  assetPrefix: "./",
 }
