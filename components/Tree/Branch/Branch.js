@@ -39,12 +39,13 @@ const Branch = ({ item, level, itemLast }) => {
     setSelected = setSelectedBranch
     selected = selectedBrach
   }
-  // item.children = Object.keys(item).includes()
+
   const hasChildren = item.children ? true : false
   let itemLeaf = () => {
     //!item.children?.some((elem, i)=>elem.children) &&
     return (
-      item.children && item.children.filter((elem) => !elem.children).at(-1)
+      Array.isArray(item.children) &&
+      item.children.filter((elem) => !elem.children).at(-1)
     )
   }
 
