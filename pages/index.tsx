@@ -1,10 +1,11 @@
-/* eslint-disable */
-//@ts-nocheck
 import React, { useState } from "react"
-import { gql } from "@apollo/client"
+import { ApolloQueryResult, gql } from "@apollo/client"
 import client from "../apollo-client"
 import Tree from "../components/Tree/Tree"
 import { aG } from "../lib/aG"
+import Branch from "../components/Tree/Branch/Branch"
+import { Node as Leaf } from "../components/Tree/Node/Node"
+
 export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
@@ -34,12 +35,7 @@ export async function getStaticProps() {
   }
 }
 
-export default function Home({ continents }) {
-  const [state, setState] = useState([])
-  const [height, setHeight] = useState(0)
-  const [width, setWidth] = useState(0)
-  const handleSetHeight = (e) => setHeight(e.target.value)
-  const handleSetWidth = (e) => setWidth(e.target.value)
+export default function Home({ continents }: { continents: Branch<Leaf>[] }) {
   // const handleSubmit = (e) => (
   //   console.log(state),
   //   e.preventDefault(),

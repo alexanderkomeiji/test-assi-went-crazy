@@ -1,9 +1,8 @@
-/* eslint-disable */
-// @ts-nocheck
 import "../styles/globals.css"
 import { ApolloProvider } from "@apollo/client"
 import client from "../apollo-client"
-function MyApp({ Component, pageProps }) {
+import { AppProps } from "next/dist/shared/lib/router/router"
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <Component {...pageProps} />
