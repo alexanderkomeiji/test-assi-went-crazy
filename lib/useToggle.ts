@@ -5,5 +5,5 @@ export const useToggle = (initialState = false) => {
 
   const stateToggle = useCallback(() => setState((state) => !state), [])
 
-  return [state, stateToggle]
+  return [state, stateToggle] as const
 }

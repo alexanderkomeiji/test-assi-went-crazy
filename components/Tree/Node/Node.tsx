@@ -1,6 +1,20 @@
 import React from "react"
+import Branch from "../Branch/Branch"
+//import { Node } from "../Branch/Branch"
 import { context } from "../Tree"
-const Node = ({ item, level, onToggle, hasChildren, itemLast }) => {
+
+export type Node = {
+  selected: boolean
+  hasChildren: boolean
+  level: number
+  itemLast?: number | undefined
+  onToggle: () => void
+  id: number
+  item: Branch<Node>
+  name?: string
+}
+
+const Node = ({ item, level, onToggle, hasChildren, itemLast, name }: Node) => {
   const { setSelectedBranch } = React.useContext(context)
 
   return (
@@ -14,7 +28,7 @@ const Node = ({ item, level, onToggle, hasChildren, itemLast }) => {
         itemLast === item.id ? setSelectedBranch() : hasChildren && onToggle()
       }
     >
-      {item.name}
+      {name}
     </div>
   )
 }

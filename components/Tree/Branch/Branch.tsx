@@ -1,36 +1,54 @@
 import React from "react"
+import { Node as Leaf } from "../Node/Node"
 import Node from "../Node/Node"
-import { useToggle } from "../../useToggle"
-import { context } from "../Tree"
+import { useToggle } from "../../../lib/useToggle"
+import { Context, context } from "../Tree"
 
-export const BranchList = ({ item, level }) => {
+export const BranchList = ({ item, level }: BranchList) => {
   const [selectedBrach, setSelected] = useToggle()
 
   const setSelectedBranch = React.useCallback(
-    () => setSelected(selectedBrach),
+    () => setSelected(),
     [selectedBrach, setSelected]
   )
 
-  const contextProps = React.useMemo(
+  const contextProps: Context = React.useMemo(
     () => ({ setSelectedBranch, selectedBrach }),
     [selectedBrach, setSelectedBranch]
   )
 
   return (
     <context.Provider value={contextProps}>
-      <Branch key={item.id} item={item} level={level} />
+      <Branch item={item} level={level} />
     </context.Provider>
   )
 }
 
-const Branch = ({ item, level, itemLast }) => {
+export type BranchList = {
+  level: number
+  item: Branch<Leaf>
+}
+type Branch<Type> = Type & {
+  children?: Branch<Type>[]
+  id: number
+}
+
+const Branch = ({
+  item,
+  level,
+  itemLast,
+}: {
+  item: Branch<Leaf>
+  level: Leaf["level"]
+  itemLast?: Leaf["itemLast"]
+}) => {
   console.log(Date.now())
   console.log(item)
   console.log("Level is", level)
 
   let [selected, setSelected] = useToggle()
-  let toggleSelected = React.useCallback(
-    () => setSelected(selected),
+  const toggleSelected = React.useCallback(
+    () => setSelected(),
     [selected, setSelected]
   )
   const { selectedBrach, setSelectedBranch } = React.useContext(context)
@@ -40,13 +58,13 @@ const Branch = ({ item, level, itemLast }) => {
     selected = selectedBrach
   }
   const hasChildren = item.children ? true : false
-  let itemLeaf = () => {
+  const itemLeaf = () => {
     return item.children?.filter((elem) => !elem.children).at(-1)
   }
 
   const renderBranches = () => {
     if (hasChildren) {
-      return item.children.map((child) => {
+      return item.children?.map((child) => {
         return (
           <Branch
             key={child.id}
@@ -67,7 +85,9 @@ const Branch = ({ item, level, itemLast }) => {
         hasChildren={hasChildren}
         level={level}
         itemLast={itemLast}
+        id={item.id}
         onToggle={toggleSelected}
+        name={item.name}
       />
 
       {selected && renderBranches()}

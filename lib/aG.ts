@@ -5,7 +5,12 @@ export const aG = ({ quantity = 0, depth = 0 }) => {
   //     name: `NOT MEAT + ${Math.random()}`,}))
   //   ,
   // ];
-  const array = [
+  type Array = {
+    id: string
+    name: string
+    children?: Array[]
+  }
+  const array: Array[] = [
     ...Array({
       id: `FRUIT ${Math.random()}`,
       name: `NOT MEAT + ${Math.random()}`,
