@@ -1,3 +1,5 @@
+/* eslint-disable */
+//@ts-nocheck
 import React, { useState } from "react"
 import { gql } from "@apollo/client"
 import client from "../apollo-client"
