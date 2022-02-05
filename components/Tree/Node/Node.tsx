@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactChildren, ReactElement } from "react"
 import Branch from "../Branch/Branch"
 //import { Node } from "../Branch/Branch"
 import { context } from "../Tree"
@@ -11,25 +11,33 @@ export type Node = {
   onToggle: () => void
   id: number
   item: Branch<Node>
+  children?: React.ReactNode
   name?: string
 }
 
-const Node = ({ item, level, onToggle, hasChildren, itemLast, name }: Node) => {
+const Node = ({
+  item,
+  level,
+  onToggle,
+  hasChildren,
+  itemLast,
+  name,
+  children,
+}: Node) => {
   const { setSelectedBranch } = React.useContext(context)
 
   return (
-    <div
-      style={
-        hasChildren
-          ? { paddingLeft: `${level * 16}px`, color: "red" }
-          : { paddingLeft: `${level * 16}px` }
-      }
-      onClick={() =>
-        itemLast === item.id ? setSelectedBranch() : hasChildren && onToggle()
-      }
-    >
-      {name}
-    </div>
+    <>
+      <li
+        style={hasChildren ? { color: "red" } : {}}
+        onClick={() =>
+          itemLast === item.id ? setSelectedBranch() : hasChildren && onToggle()
+        }
+      >
+        {name}
+      </li>
+      {children}
+    </>
   )
 }
 

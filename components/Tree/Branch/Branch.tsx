@@ -19,7 +19,9 @@ export const BranchList = ({ item, level }: BranchList) => {
 
   return (
     <context.Provider value={contextProps}>
-      <Branch item={item} level={level} />
+      <ul>
+        <Branch item={item} level={level} />
+      </ul>
     </context.Provider>
   )
 }
@@ -42,10 +44,6 @@ const Branch = ({
   level: Leaf["level"]
   itemLast?: Leaf["itemLast"]
 }) => {
-  console.log(Date.now())
-  console.log(item)
-  console.log("Level is", level)
-
   let [selected, setSelected] = useToggle()
   const toggleSelected = React.useCallback(
     () => setSelected(),
@@ -88,9 +86,9 @@ const Branch = ({
         id={item.id}
         onToggle={toggleSelected}
         name={item.name}
-      />
-
-      {selected && renderBranches()}
+      >
+        <ul>{selected && renderBranches()}</ul>
+      </Node>
     </>
   )
 }
